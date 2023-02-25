@@ -1,0 +1,12 @@
+websocket:
+  uri: wss://ws.kraken.com/
+
+currency:
+  pairs:
+    - XBT/USD
+    - ETH/USD
+
+kraken:
+  order:
+    count:
+      max: ${KRAKEN_ORDER_MAX_COUNT:1000}

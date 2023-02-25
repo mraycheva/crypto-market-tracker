@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile-dev
+    image: market-app-dev:monica
+    container_name: market-app-dev-monica
+    command: ${CMD}
+    environment:
+      - CMD
+    volumes:
+      - ..:/market
+    restart: on-failure

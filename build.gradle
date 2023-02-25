@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'jacoco'
+    id 'checkstyle'
+}
+
+group = 'io.mraycheva'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '19'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
+    implementation('org.springframework.boot:spring-boot-starter-webflux') {
+        exclude group: 'io.netty', module: 'netty-resolver-dns-native-macos'
+    }
+    runtimeOnly group: 'io.netty', name: 'netty-resolver-dns-native-macos', classifier: 'osx-aarch_64'
+    implementation group: 'io.vavr', name: 'vavr', version: '0.10.4'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok'
+    developmentOnly group: 'org.springframework.boot', name: 'spring-boot-devtools'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "io/mraycheva/market/MarketApplication.class"
+            ])
+        }))
+    }
+}

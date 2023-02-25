@@ -1,0 +1,4 @@
+FROM gradle:jdk19
+LABEL maintainer="monicaraycheva@gmail.com"
+EXPOSE 8080
+WORKDIR /market

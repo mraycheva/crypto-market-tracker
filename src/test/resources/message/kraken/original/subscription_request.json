@@ -1,0 +1,11 @@
+{
+  "event": "subscribe",
+  "subscription": {
+    "depth": 1000,
+    "name": "book"
+  },
+  "pair": [
+    "ETH/USD",
+    "XBT/USD"
+  ]
+}
